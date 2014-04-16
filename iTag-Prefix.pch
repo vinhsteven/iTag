@@ -1,0 +1,36 @@
+//
+//  Prefix header
+//
+//  The contents of this file are implicitly included at the beginning of every source file.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    #import <QuartzCore/QuartzCore.h>
+    #import "AppDelegate.h"
+    #import "TPKeyboardAvoidingTableView.h"
+    #import "UIViewController+MMDrawerController.h"
+#endif
+
+typedef enum {
+    IPHONE_5,
+    IPHONE,
+    IPAD
+} DeviceType;
+
+enum {
+    kApplication = 0,
+    kSearchJobs,
+    kSavedJobs,
+};
+
+#define GREY_BACKGROUND_COLOR [UIColor colorWithRed:(float)57/255 green:(float)59/255 blue:(float)62/255 alpha:1.0]
+#define BLACK_BACKGROUND_COLOR [UIColor colorWithRed:(float)0/255 green:(float)0/255 blue:(float)0/255 alpha:1.0]
+#define TEXT_COLOR [UIColor colorWithRed:(float)248/255 green:(float)167/255 blue:(float)50/255 alpha:1.0]
