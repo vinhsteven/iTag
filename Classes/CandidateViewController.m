@@ -9,6 +9,7 @@
 #import "CandidateViewController.h"
 #import "ListJobViewController.h"
 #import "DetailViewController.h"
+#import "ResumeViewController.h"
 
 @implementation CircleView
 
@@ -108,34 +109,7 @@
     [btnLeft addTarget:self action:@selector(leftButtonPress) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *btnItem = [[UIBarButtonItem alloc] initWithCustomView:btnLeft];
     self.navigationItem.leftBarButtonItem = btnItem;
-    
-    //add table view to display job
-    mainArray = [NSMutableArray arrayWithCapacity:1];
-    
-    NSString *jobTitle[] = {
-        @"Restaurant Manager",
-        @"Outlet Manager",
-        @"Waiter/Waitress"
-    };
-    
-    NSString *company[] = {
-        @"Sakae Sushi",
-        @"SaladStop!",
-        @"SaladStop!"
-    };
-    
-    NSString *companyLogo[] = {
-        @"tmp_company_1.png",
-        @"tmp_company_2.png",
-        @"tmp_company_2.png"
-    };
-    
-    NSString *description[] = {
-        @"Sakae Sushi, the largest chain of sushi production in Sigapore. Founded in 2000",
-        @"Welcome to SaladStop",
-        @"Welcome to SaladStop",
-    };
-    
+
     switch (viewType) {
         case kApplication:
             self.navigationItem.title = @"Application";
@@ -150,115 +124,71 @@
             break;
     }
     
-    for (int i=0;i < sizeof(jobTitle)/sizeof(jobTitle[0]);i++) {
-        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:jobTitle[i],@"jobTitle",company[i],@"companyName",description[i],@"description",companyLogo[i],@"logo", nil];
-        [mainArray addObject:dict];
+    if ([AppDelegate getOSVersion] == iOS6) {
+        self.profileImgView.center = CGPointMake(self.profileImgView.center.x, self.profileImgView.center.y-64);
+        self.btnApplication.center = CGPointMake(self.btnApplication.center.x, self.btnApplication.center.y-64);
+        self.btnResume.center = CGPointMake(self.btnResume.center.x, self.btnResume.center.y-64);
+        self.btnSavedJobs.center = CGPointMake(self.btnSavedJobs.center.x, self.btnSavedJobs.center.y-64);
+        self.btnSearchJobs.center = CGPointMake(self.btnSearchJobs.center.x, self.btnSearchJobs.center.y-64);
+        self.lbDateAvailable.center = CGPointMake(self.lbDateAvailable.center.x, self.lbDateAvailable.center.y-64);
+        self.lbName.center = CGPointMake(self.lbName.center.x, self.lbName.center.y-64);
+        self.txtJob.center = CGPointMake(self.txtJob.center.x, self.txtJob.center.y-64);
+        self.txtSchool.center = CGPointMake(self.txtSchool.center.x, self.txtSchool.center.y-64);
     }
-    
-    self.mainTableView.backgroundColor = GREY_BACKGROUND_COLOR;
-    self.mainTableView.rowHeight = 90;
-    self.mainTableView.separatorColor = [UIColor lightGrayColor];
 }
 
-- (void) viewWillAppear:(BOOL)animated {
-    if (_mainTableView.hidden == NO) {
-        switch (viewType) {
-            case kApplication:
-                self.navigationItem.title = @"Application";
-                break;
-            case kSearchJobs:
-                self.navigationItem.title = @"Search Jobs";
-                break;
-            case kSavedJobs:
-                self.navigationItem.title = @"Saved Jobs";
-                break;
-            default:
-                break;
-        }
-    }
-}
 - (void) leftButtonPress {
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
 - (IBAction)tapApplication:(id)sender {
     viewType = kApplication;
-    _mainTableView.hidden = NO;
-    self.navigationItem.title = @"Application";
+    
+    ListJobViewController *controller = [[ListJobViewController alloc] init];
+    UINavigationController *naviController = [[UINavigationController alloc] initWithRootViewController:controller];
+    naviController.navigationBar.barStyle = UIBarStyleBlack;
+    [self.mm_drawerController
+     setCenterViewController:naviController
+     withCloseAnimation:YES
+     completion:nil];
 }
 
 - (IBAction)tapResume:(id)sender {
-    
+    ResumeViewController *controller;
+    if ([AppDelegate getDevice] == IPHONE_5)
+        controller = [[ResumeViewController alloc] initWithNibName:@"ResumeViewController" bundle:nil];
+    else
+        controller = [[ResumeViewController alloc] initWithNibName:@"ResumeViewController-480" bundle:nil];
+    UINavigationController *naviController = [[UINavigationController alloc] initWithRootViewController:controller];
+    naviController.navigationBar.barStyle = UIBarStyleBlack;
+    [self.mm_drawerController
+     setCenterViewController:naviController
+     withCloseAnimation:NO
+     completion:nil];
 }
 
 - (IBAction)tapSearchJobs:(id)sender {
     viewType = kSearchJobs;
-    _mainTableView.hidden = NO;
-    self.navigationItem.title = @"Search Jobs";
+   
+    ListJobViewController *controller = [[ListJobViewController alloc] init];
+    UINavigationController *naviController = [[UINavigationController alloc] initWithRootViewController:controller];
+    naviController.navigationBar.barStyle = UIBarStyleBlack;
+    [self.mm_drawerController
+     setCenterViewController:naviController
+     withCloseAnimation:YES
+     completion:nil];
 }
 
 - (IBAction)tapSavedJobs:(id)sender {
     viewType = kSavedJobs;
-    _mainTableView.hidden = NO;
     
-    self.navigationItem.title = @"Saved Jobs";
-}
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    return [mainArray count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *cellIdentifier = @"CellIdentifier";
-    
-    // Configure the cell...
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-    
-    NSDictionary *dict = [mainArray objectAtIndex:indexPath.row];
-    UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[dict objectForKey:@"logo"]]];
-    img.frame = CGRectMake(20, 10, 70, 70);
-    [cell.contentView addSubview:img];
-    
-    UILabel *lbJobTitle = [[UILabel alloc] initWithFrame:CGRectMake(110, 30, 150, 21)];
-    lbJobTitle.backgroundColor = [UIColor clearColor];
-    lbJobTitle.textColor = TEXT_COLOR;
-    lbJobTitle.text = [dict objectForKey:@"jobTitle"];
-    lbJobTitle.font = [UIFont systemFontOfSize:13];
-    [cell.contentView addSubview:lbJobTitle];
-    
-    UILabel *lbCompany = [[UILabel alloc] initWithFrame:CGRectMake(110, 50, 150, 21)];
-    lbCompany.backgroundColor = [UIColor clearColor];
-    lbCompany.textColor = TEXT_COLOR;
-    lbCompany.text = [dict objectForKey:@"company"];
-    lbCompany.font = [UIFont systemFontOfSize:13];
-    [cell.contentView addSubview:lbCompany];
-    
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.backgroundColor = GREY_BACKGROUND_COLOR;
-    
-    return cell;
-}
-
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.navigationItem.title = @"";
-    
-    NSDictionary *dict = [mainArray objectAtIndex:indexPath.row];
-    
-    DetailViewController *controller = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
-    controller.parent = self;
-    controller.detailDict = dict;
-    controller.viewType = viewType;
-    [self.navigationController pushViewController:controller animated:YES];
+    ListJobViewController *controller = [[ListJobViewController alloc] init];
+    UINavigationController *naviController = [[UINavigationController alloc] initWithRootViewController:controller];
+    naviController.navigationBar.barStyle = UIBarStyleBlack;
+    [self.mm_drawerController
+     setCenterViewController:naviController
+     withCloseAnimation:YES
+     completion:nil];
 }
 
 @end

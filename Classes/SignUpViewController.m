@@ -45,9 +45,6 @@ enum {
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:TEXT_COLOR forKey:UITextAttributeTextColor];
     self.navigationItem.title = @"Sign up";
     
-    UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(confirmSignUp)];
-    self.navigationItem.rightBarButtonItem = btnDone;
-    
     txtFirstName = [[UITextField alloc] initWithFrame:CGRectMake(150, 10, 150, 30)];
     txtFirstName.borderStyle = UITextBorderStyleNone;
     txtFirstName.placeholder = @"Required";
@@ -104,6 +101,39 @@ enum {
         NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:i],@"index",titleStr[i],@"title", nil];
         [mainArray addObject:dict];
     }
+    
+    self.mainTableView.backgroundColor = [UIColor clearColor];
+    
+    if ([AppDelegate getOSVersion] == iOS6) {
+        self.mainTableView.center = CGPointMake(self.mainTableView.center.x, self.mainTableView.center.y-64);
+        self.lbTermCondition.center = CGPointMake(self.lbTermCondition.center.x, self.lbTermCondition.center.y-64);
+        
+        UIButton *btnDone = [UIButton buttonWithType:UIButtonTypeCustom];
+        btnDone.frame = CGRectMake(290, 5, 70, 21);
+        [btnDone setTitle:@"Done" forState:UIControlStateNormal];
+        [btnDone setTitleColor:TEXT_COLOR forState:UIControlStateNormal];
+        [btnDone addTarget:self action:@selector(confirmSignUp) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIBarButtonItem *btnBarDone = [[UIBarButtonItem alloc] initWithCustomView:btnDone];
+        self.navigationItem.rightBarButtonItem = btnBarDone;
+        
+        UIButton *btnBack = [UIButton buttonWithType:UIButtonTypeCustom];
+        btnBack.frame = CGRectMake(10, 5, 13, 22);
+        [btnBack setImage:[UIImage imageNamed:@"icon_back_yellow"] forState:UIControlStateNormal];
+        [btnBack addTarget:self action:@selector(backView) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIBarButtonItem *btnBarBack = [[UIBarButtonItem alloc] initWithCustomView:btnBack];
+        self.navigationItem.leftBarButtonItem = btnBarBack;
+    }
+    else {
+        UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(confirmSignUp)];
+        self.navigationItem.rightBarButtonItem = btnDone;
+    }
+}
+
+//for iOS < 7
+- (void) backView {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void) confirmSignUp {
@@ -159,6 +189,8 @@ enum {
             break;
     }
     
+    cell.contentView.backgroundColor = [UIColor whiteColor];
+    cell.backgroundColor = [UIColor whiteColor];
     
     return cell;
 }

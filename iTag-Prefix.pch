@@ -25,6 +25,11 @@ typedef enum {
     IPAD
 } DeviceType;
 
+typedef enum {
+    iOS6,
+    iOS7
+} OSVersion;
+
 enum {
     kApplication = 0,
     kSearchJobs,

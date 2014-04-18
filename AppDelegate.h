@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LoginViewController.h"
+#import "APPViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate> {
     LoginViewController *loginVC;
@@ -17,6 +18,8 @@
 @property (strong, nonatomic) UINavigationController *navigationController;
 
 +(int)getDevice;
++(int)getOSVersion;
 + (UIImage *) imageFromColor:(UIColor *)color;
++ (UIImage*)imageByScalingAndCroppingForSize:(CGSize)targetSize source:(UIImage*)sourceImages;
 
 @end

@@ -9,6 +9,8 @@
 #import "LeftSideViewController.h"
 #import "MMDrawerController.h"
 #import "LoginViewController.h"
+#import "ResumeViewController.h"
+#import "ListJobViewController.h"
 
 @interface LeftSideViewController ()
 
@@ -129,41 +131,82 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *dict = [mainArray objectAtIndex:indexPath.row];
     int index = [[dict objectForKey:@"index"] intValue];
+    NSLog(@"controller = %@",((LoginViewController*)parent).centerViewController);
     switch (index) {
         case kSignOutTag:
             [((LoginViewController*)parent).drawerController.navigationController popViewControllerAnimated:YES];
             break;
         case kHomeTag:
-            [((LoginViewController*)parent).centerViewController.mainTableView setHidden:YES];
+//            [((LoginViewController*)parent).centerViewController.mainTableView setHidden:YES];
+//            [self.mm_drawerController
+//             setCenterViewController:((LoginViewController*)parent).centerViewController.navigationController
+//             withCloseAnimation:YES
+//             completion:nil];
+        {
+            CandidateViewController *controller;
+            if ([AppDelegate getDevice] == IPHONE_5)
+                controller = [[CandidateViewController alloc] initWithNibName:@"CandidateViewController" bundle:nil];
+            else
+                controller = [[CandidateViewController alloc] initWithNibName:@"CandidateViewController-480" bundle:nil];
+            UINavigationController *naviController = [[UINavigationController alloc] initWithRootViewController:controller];
+            naviController.navigationBar.barStyle = UIBarStyleBlack;
             [self.mm_drawerController
-             setCenterViewController:((LoginViewController*)parent).centerViewController.navigationController
+             setCenterViewController:naviController
              withCloseAnimation:YES
              completion:nil];
             break;
+        }
         case kSearchJobTag:
-            [((LoginViewController*)parent).centerViewController.mainTableView setHidden:NO];
-            [((LoginViewController*)parent).centerViewController tapSearchJobs:nil];
+        {
+            ListJobViewController *controller = [[ListJobViewController alloc] init];
+            controller.viewType = kSearchJobs;
+            UINavigationController *naviController = [[UINavigationController alloc] initWithRootViewController:controller];
+            naviController.navigationBar.barStyle = UIBarStyleBlack;
             [self.mm_drawerController
-             setCenterViewController:((LoginViewController*)parent).centerViewController.navigationController
+             setCenterViewController:naviController
              withCloseAnimation:YES
              completion:nil];
             break;
+        }
         case kSavedJobsTag:
-            [((LoginViewController*)parent).centerViewController.mainTableView setHidden:NO];
-            [((LoginViewController*)parent).centerViewController tapSavedJobs:nil];
+        {
+            ListJobViewController *controller = [[ListJobViewController alloc] init];
+            controller.viewType = kSavedJobs;
+            UINavigationController *naviController = [[UINavigationController alloc] initWithRootViewController:controller];
+            naviController.navigationBar.barStyle = UIBarStyleBlack;
             [self.mm_drawerController
-             setCenterViewController:((LoginViewController*)parent).centerViewController.navigationController
+             setCenterViewController:naviController
              withCloseAnimation:YES
              completion:nil];
             break;
+        }
         case kApplicationTag:
-            [((LoginViewController*)parent).centerViewController.mainTableView setHidden:NO];
-            [((LoginViewController*)parent).centerViewController tapApplication:nil];
+        {
+            ListJobViewController *controller = [[ListJobViewController alloc] init];
+            controller.viewType = kApplication;
+            UINavigationController *naviController = [[UINavigationController alloc] initWithRootViewController:controller];
+            naviController.navigationBar.barStyle = UIBarStyleBlack;
             [self.mm_drawerController
-             setCenterViewController:((LoginViewController*)parent).centerViewController.navigationController
+             setCenterViewController:naviController
              withCloseAnimation:YES
              completion:nil];
             break;
+        }
+        case kResumeTag:
+        {
+            ResumeViewController *controller;
+            if ([AppDelegate getDevice] == IPHONE_5)
+                controller = [[ResumeViewController alloc] initWithNibName:@"ResumeViewController" bundle:nil];
+            else
+                controller = [[ResumeViewController alloc] initWithNibName:@"ResumeViewController-480" bundle:nil];
+            UINavigationController *naviController = [[UINavigationController alloc] initWithRootViewController:controller];
+            naviController.navigationBar.barStyle = UIBarStyleBlack;
+            [self.mm_drawerController
+             setCenterViewController:naviController
+             withCloseAnimation:YES
+             completion:nil];
+            break;
+        }
         default:
             break;
     }

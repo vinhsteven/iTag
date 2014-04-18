@@ -32,6 +32,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
     self.view.backgroundColor = GREY_BACKGROUND_COLOR;
     self.navigationItem.title = @"";
     
@@ -69,7 +70,45 @@
 }
 
 - (IBAction)tapFBSignIn:(id)sender {
+    LeftSideViewController *leftViewController = [[LeftSideViewController alloc] init];
     
+    if ([AppDelegate getDevice] == IPHONE_5)
+        centerViewController = [[CandidateViewController alloc] initWithNibName:@"CandidateViewController" bundle:nil];
+    else
+        centerViewController = [[CandidateViewController alloc] initWithNibName:@"CandidateViewController-480" bundle:nil];
+    
+    UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:centerViewController];
+    navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    [navigationController setRestorationIdentifier:@"MMExampleCenterNavigationControllerRestorationKey"];
+    
+    UINavigationController * leftNavigationController = [[UINavigationController alloc] initWithRootViewController:leftViewController];
+    leftNavigationController.navigationBar.barStyle = UIBarStyleBlack;
+    [leftNavigationController setRestorationIdentifier:@"MMExampleCenterNavigationControllerRestorationKey"];
+    
+    self.drawerController = [[MMDrawerController alloc]
+                             initWithCenterViewController:navigationController
+                             leftDrawerViewController:leftNavigationController
+                             rightDrawerViewController:nil];
+    [self.drawerController setShowsShadow:NO];
+    
+    [self.drawerController setRestorationIdentifier:@"MMDrawer"];
+    [self.drawerController setMaximumLeftDrawerWidth:160];
+    [self.drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    [self.drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+    
+    [self.drawerController
+     setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
+         MMDrawerControllerDrawerVisualStateBlock block;
+         block = [[MMExampleDrawerVisualStateManager sharedManager]
+                  drawerVisualStateBlockForDrawerSide:drawerSide];
+         if(block){
+             block(drawerController, drawerSide, percentVisible);
+         }
+     }];
+    
+    [self.navigationController pushViewController:self.drawerController animated:YES];
+    
+    leftViewController.parent = self;
 }
 
 - (IBAction)tapSignIn:(id)sender {
@@ -88,7 +127,10 @@
 
     LeftSideViewController *leftViewController = [[LeftSideViewController alloc] init];
     
-    centerViewController = [[CandidateViewController alloc] initWithNibName:@"CandidateViewController" bundle:nil];
+    if ([AppDelegate getDevice] == IPHONE_5)
+        centerViewController = [[CandidateViewController alloc] initWithNibName:@"CandidateViewController" bundle:nil];
+    else
+        centerViewController = [[CandidateViewController alloc] initWithNibName:@"CandidateViewController-480" bundle:nil];
     
     UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:centerViewController];
     navigationController.navigationBar.barStyle = UIBarStyleBlack;
@@ -125,7 +167,11 @@
 }
 
 - (IBAction)tapRegister:(id)sender {
-    SignUpViewController *controller = [[SignUpViewController alloc] initWithNibName:@"SignUpViewController" bundle:nil];
+    SignUpViewController *controller;
+    if ([AppDelegate getDevice] == IPHONE_5)
+        controller = [[SignUpViewController alloc] initWithNibName:@"SignUpViewController" bundle:nil];
+    else
+        controller = [[SignUpViewController alloc] initWithNibName:@"SignUpViewController-480" bundle:nil];
     [self.navigationController pushViewController:controller animated:YES];
 }
 

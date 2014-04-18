@@ -8,13 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ResumeViewController : UIViewController <UITableViewDataSource,UITableViewDelegate> {
+@interface ResumeViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate> {
     NSMutableArray *workExperienceArray;
     NSMutableArray *educationArray;
 }
 
 @property (strong, nonatomic) IBOutlet UIButton *btnCancelProfile;
 @property (strong, nonatomic) IBOutlet UIButton *btnEditDoneProfile;
+@property (strong, nonatomic) IBOutlet UIButton *btnEditImageProfile;
 @property (strong, nonatomic) IBOutlet TPKeyboardAvoidingTableView *mainTableView;
+@property (strong, nonatomic) IBOutlet UITextField *txtJobTitle;
+@property (strong, nonatomic) IBOutlet UITextField *txtSchool;
+@property (strong, nonatomic) IBOutlet UIImageView *profileImg;
+
+- (IBAction)tapCancelProfile:(id)sender;
+- (IBAction)tapEditProfile:(id)sender;
+- (IBAction)tapEditImageProfile:(id)sender;
 
 @end

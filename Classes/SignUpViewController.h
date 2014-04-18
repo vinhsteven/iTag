@@ -21,5 +21,6 @@
 }
 
 @property (strong,nonatomic) IBOutlet TPKeyboardAvoidingTableView *mainTableView;
+@property (strong,nonatomic) IBOutlet UILabel *lbTermCondition;
 
 @end

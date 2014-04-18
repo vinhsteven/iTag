@@ -60,6 +60,28 @@
     
     _txtDescription.text = [detailDict objectForKey:@"description"];
     _txtDescription.editable = NO;
+    
+    if ([AppDelegate getOSVersion] == iOS6) {
+        self.companyLogo.center = CGPointMake(self.companyLogo.center.x, self.companyLogo.center.y-64);
+        self.lbCompanyName.center = CGPointMake(self.lbCompanyName.center.x, self.lbCompanyName.center.y-64);
+        self.lbJobTitle.center = CGPointMake(self.lbJobTitle.center.x, self.lbJobTitle.center.y-64);
+        self.txtDescription.center = CGPointMake(self.txtDescription.center.x, self.txtDescription.center.y-64);
+        self.btnSaveCancel.center = CGPointMake(self.btnSaveCancel.center.x, self.btnSaveCancel.center.y-64);
+        self.btnWithdrawApply.center = CGPointMake(self.btnWithdrawApply.center.x, self.btnWithdrawApply.center.y-64);
+        
+        UIButton *btnBack = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btnBack setImage:[UIImage imageNamed:@"icon_back_yellow.png"] forState:UIControlStateNormal];
+        btnBack.frame = CGRectMake(5, 5, 13, 22);
+        [btnBack addTarget:self action:@selector(backView) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIBarButtonItem *btnBarBackItem = [[UIBarButtonItem alloc] initWithCustomView:btnBack];
+        self.navigationItem.leftBarButtonItem = btnBarBackItem;
+    }
+}
+
+//for iOS < 7
+- (void) backView {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)handleSaveCancel:(UIButton*)sender {

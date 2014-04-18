@@ -15,7 +15,6 @@
 @end
 
 @interface CandidateViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
-    NSMutableArray *mainArray;
     int viewType;
 }
 
@@ -30,8 +29,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *btnSearchJobs;
 @property (strong, nonatomic) IBOutlet UIButton *btnSavedJobs;
 @property (strong, nonatomic) IBOutlet UIImageView *profileImgView;
-
-@property (strong, nonatomic) IBOutlet UITableView *mainTableView;
+@property (strong, nonatomic) IBOutlet UILabel *lbDateAvailable;
 
 - (IBAction)tapApplication:(id)sender;
 - (IBAction)tapResume:(id)sender;
