@@ -58,6 +58,7 @@
     // Do any additional setup after loading the view from its nib.
     
     self.navigationController.navigationBarHidden = NO;
+//    self.navigationController.navigationBar.barTintColor = BLACK_BACKGROUND_COLOR;
     
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:TEXT_COLOR forKey:UITextAttributeTextColor];
     
@@ -67,12 +68,11 @@
     
     // Change the frame size to suit yours //
     
-    [navBorder setBackgroundColor:[UIColor lightGrayColor]];
+    [navBorder setBackgroundColor:LINE_COLOR];
     [navBorder setOpaque:YES];
     [self.navigationController.navigationBar addSubview:navBorder];
     
     _profileImgView.layer.cornerRadius = 50;
-    _profileImgView.layer.borderWidth = 1;
     
     _cirleNotification = [[CircleView alloc] initWithFrame:CGRectMake(110, 25, 25, 25)];
     _lbNotification = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
@@ -85,21 +85,21 @@
     
     [_btnApplication addSubview:_cirleNotification];
     
-    [_btnApplication setBackgroundColor:GREY_BACKGROUND_COLOR];
-    _btnApplication.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    _btnApplication.layer.borderWidth = 0.5;
+    [_btnApplication setBackgroundColor:BUTTON_BACKGROUND_COLOR];
+    _btnApplication.layer.borderColor = LINE_COLOR.CGColor;
+    _btnApplication.layer.borderWidth = 1;
     
-    [_btnResume setBackgroundColor:GREY_BACKGROUND_COLOR];
-    _btnResume.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    _btnResume.layer.borderWidth = 0.5;
+    [_btnResume setBackgroundColor:BUTTON_BACKGROUND_COLOR];
+    _btnResume.layer.borderColor = LINE_COLOR.CGColor;
+    _btnResume.layer.borderWidth = 1;
     
-    [_btnSavedJobs setBackgroundColor:GREY_BACKGROUND_COLOR];
-    _btnSavedJobs.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    _btnSavedJobs.layer.borderWidth = 0.5;
+    [_btnSavedJobs setBackgroundColor:BUTTON_BACKGROUND_COLOR];
+    _btnSavedJobs.layer.borderColor = LINE_COLOR.CGColor;
+    _btnSavedJobs.layer.borderWidth = 1;
     
-    [_btnSearchJobs setBackgroundColor:GREY_BACKGROUND_COLOR];
-    _btnSearchJobs.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    _btnSearchJobs.layer.borderWidth = 0.5;
+    [_btnSearchJobs setBackgroundColor:BUTTON_BACKGROUND_COLOR];
+    _btnSearchJobs.layer.borderColor = LINE_COLOR.CGColor;
+    _btnSearchJobs.layer.borderWidth = 1;
     
     _txtJob.enabled = _txtSchool.enabled = NO;
 
@@ -135,6 +135,13 @@
         self.txtJob.center = CGPointMake(self.txtJob.center.x, self.txtJob.center.y-64);
         self.txtSchool.center = CGPointMake(self.txtSchool.center.x, self.txtSchool.center.y-64);
     }
+    
+    self.view.backgroundColor = BLACK_BACKGROUND_COLOR;
+    self.lbName.textColor = TEXT_COLOR;
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    self.navigationItem.title = @"iTAG";
 }
 
 - (void) leftButtonPress {

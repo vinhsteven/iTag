@@ -10,6 +10,7 @@
                 <outlet property="btnCancelProfile" destination="7Vb-dw-JIe" id="8mJ-p9-VZE"/>
                 <outlet property="btnEditDoneProfile" destination="jZ7-is-jid" id="Anz-Fs-iM3"/>
                 <outlet property="btnEditImageProfile" destination="Nml-rm-xfe" id="NFc-5k-Hpy"/>
+                <outlet property="lbName" destination="vcH-4O-Kzr" id="utn-Z1-4Kh"/>
                 <outlet property="mainTableView" destination="bG8-xE-Nun" id="RPJ-f0-JGW"/>
                 <outlet property="profileImg" destination="JHO-tP-4iA" id="dqg-e3-GOp"/>
                 <outlet property="txtJobTitle" destination="uGS-sv-C9P" id="uHS-NO-Tjt"/>

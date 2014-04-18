@@ -40,7 +40,7 @@
     
     // Change the frame size to suit yours //
     
-    [navBorder setBackgroundColor:[UIColor lightGrayColor]];
+    [navBorder setBackgroundColor:LINE_COLOR];
     [navBorder setOpaque:YES];
     [self.navigationController.navigationBar addSubview:navBorder];
     
@@ -79,7 +79,7 @@
     
     /* Section header is in 0th index... */
     [headerTitleView addSubview:label];
-    [headerTitleView setBackgroundColor:GREY_BACKGROUND_COLOR]; //your background color...
+    [headerTitleView setBackgroundColor:BLACK_BACKGROUND_COLOR]; //your background color...
     label.textColor = TEXT_COLOR;
     
     if (_expType == 0) {
@@ -122,7 +122,7 @@
     UIBarButtonItem *btnItem = [[UIBarButtonItem alloc] initWithCustomView:btnLeft];
     self.navigationItem.leftBarButtonItem = btnItem;
     
-    self.tableView.backgroundColor = GREY_BACKGROUND_COLOR;
+    self.tableView.backgroundColor = BLACK_BACKGROUND_COLOR;
     self.tableView.separatorColor  = [UIColor clearColor];
 }
 
@@ -240,7 +240,7 @@
         [lbDescription sizeToFit];
     }
     
-    cell.backgroundColor = GREY_BACKGROUND_COLOR;
+    cell.backgroundColor = BLACK_BACKGROUND_COLOR;
     
     return cell;
 }

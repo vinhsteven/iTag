@@ -20,6 +20,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *txtJobTitle;
 @property (strong, nonatomic) IBOutlet UITextField *txtSchool;
 @property (strong, nonatomic) IBOutlet UIImageView *profileImg;
+@property (strong, nonatomic) IBOutlet UILabel *lbName;
 
 - (IBAction)tapCancelProfile:(id)sender;
 - (IBAction)tapEditProfile:(id)sender;

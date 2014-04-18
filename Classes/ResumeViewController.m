@@ -39,7 +39,7 @@
     
     // Change the frame size to suit yours //
     
-    [navBorder setBackgroundColor:[UIColor lightGrayColor]];
+    [navBorder setBackgroundColor:LINE_COLOR];
     [navBorder setOpaque:YES];
     [self.navigationController.navigationBar addSubview:navBorder];
     
@@ -76,7 +76,7 @@
         [educationArray addObject:dict];
     }
     
-    self.mainTableView.backgroundColor = GREY_BACKGROUND_COLOR;
+    self.mainTableView.backgroundColor = BLACK_BACKGROUND_COLOR;
     self.mainTableView.separatorColor  = [UIColor clearColor];
     
     UIButton *btnLeft = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -91,11 +91,13 @@
     
     _txtJobTitle.enabled = _txtSchool.enabled = NO;
     
-    _profileImg.layer.cornerRadius = 35;
-    _profileImg.layer.borderColor = [UIColor blackColor].CGColor;
-    _profileImg.layer.borderWidth = 0.5;
+    _profileImg.layer.cornerRadius = 50;
     
     _btnEditImageProfile.hidden = YES;
+    
+    self.view.backgroundColor = BLACK_BACKGROUND_COLOR;
+    
+    self.lbName.textColor = TEXT_COLOR;
 }
 
 - (void) leftButtonPress {
@@ -204,7 +206,7 @@
       didFinishPickingImage : (UIImage *)image
                  editingInfo:(NSDictionary *)editingInfo
 {
-    CGSize size = CGSizeMake(500, 500);
+    CGSize size = CGSizeMake(100, 100);
     UIImage *croppedImage = [AppDelegate imageByScalingAndCroppingForSize:size source:image];
 //    NSData *cropimageData = UIImageJPEGRepresentation(croppedImage, 0.5);
     
@@ -230,7 +232,7 @@
     
     /* Section header is in 0th index... */
     [view addSubview:label];
-    [view setBackgroundColor:GREY_BACKGROUND_COLOR]; //your background color...
+    [view setBackgroundColor:BLACK_BACKGROUND_COLOR]; //your background color...
     label.textColor = TEXT_COLOR;
     
     //add button Edit
@@ -253,7 +255,7 @@
     
     //create line
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 1)];
-    lineView.backgroundColor = [UIColor lightGrayColor];
+    lineView.backgroundColor = LINE_COLOR;
     [view addSubview:lineView];
     
     return view;
@@ -305,7 +307,7 @@
     [cell.contentView addSubview:lbDescription];
     [lbDescription sizeToFit];
     
-    cell.backgroundColor = GREY_BACKGROUND_COLOR;
+    cell.backgroundColor = BLACK_BACKGROUND_COLOR;
     cell.userInteractionEnabled = NO;
     
     return cell;

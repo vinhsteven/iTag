@@ -128,6 +128,7 @@
 
     _navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
     _navigationController.view.frame = controller.view.frame;
+    _navigationController.navigationBar.barTintColor = BLACK_BACKGROUND_COLOR;
     controller.view.bounds = controller.view.frame;
 //    _navigationController = [[UINavigationController alloc] initWithRootViewController:loginVC];
 //    _navigationController.view.frame = loginVC.view.frame;

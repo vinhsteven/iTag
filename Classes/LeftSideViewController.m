@@ -36,7 +36,7 @@
     
     // Change the frame size to suit yours //
     
-    [navBorder setBackgroundColor:[UIColor lightGrayColor]];
+    [navBorder setBackgroundColor:LINE_COLOR];
     [navBorder setOpaque:YES];
     [self.navigationController.navigationBar addSubview:navBorder];
     

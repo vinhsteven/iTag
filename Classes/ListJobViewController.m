@@ -29,7 +29,7 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = GREY_BACKGROUND_COLOR;
+    self.view.backgroundColor = BLACK_BACKGROUND_COLOR;
     
     self.navigationController.navigationBarHidden = NO;
     
@@ -84,13 +84,13 @@
     
     // Change the frame size to suit yours //
     
-    [navBorder setBackgroundColor:[UIColor lightGrayColor]];
+    [navBorder setBackgroundColor:LINE_COLOR];
     [navBorder setOpaque:YES];
     [self.navigationController.navigationBar addSubview:navBorder];
     
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.rowHeight = 90;
-    self.tableView.separatorColor = [UIColor lightGrayColor];
+    self.tableView.separatorColor = LINE_COLOR;
     
     UIButton *btnLeft = [UIButton buttonWithType:UIButtonTypeCustom];
     btnLeft.frame = CGRectMake(0, 0, 22, 9);
@@ -149,14 +149,14 @@
     lbJobTitle.backgroundColor = [UIColor clearColor];
     lbJobTitle.textColor = TEXT_COLOR;
     lbJobTitle.text = [dict objectForKey:@"jobTitle"];
-    lbJobTitle.font = [UIFont systemFontOfSize:13];
+    lbJobTitle.font = [UIFont systemFontOfSize:14];
     [cell.contentView addSubview:lbJobTitle];
     
     UILabel *lbCompany = [[UILabel alloc] initWithFrame:CGRectMake(110, 50, 150, 21)];
     lbCompany.backgroundColor = [UIColor clearColor];
-    lbCompany.textColor = TEXT_COLOR;
-    lbCompany.text = [dict objectForKey:@"company"];
-    lbCompany.font = [UIFont systemFontOfSize:13];
+    lbCompany.textColor = [UIColor whiteColor];
+    lbCompany.text = [dict objectForKey:@"companyName"];
+    lbCompany.font = [UIFont systemFontOfSize:14];
     [cell.contentView addSubview:lbCompany];
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -180,6 +180,17 @@
     controller.detailDict = dict;
     controller.viewType = viewType;
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (float)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    // This will create a "invisible" footer
+    return 0.01f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    // To "clear" the footer view
+    return [UIView new];
 }
 
 

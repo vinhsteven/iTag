@@ -30,7 +30,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.view.backgroundColor = GREY_BACKGROUND_COLOR;
+    self.view.backgroundColor = BLACK_BACKGROUND_COLOR;
     
     switch (viewType) {
         case kApplication:
@@ -60,6 +60,10 @@
     
     _txtDescription.text = [detailDict objectForKey:@"description"];
     _txtDescription.editable = NO;
+    _txtDescription.backgroundColor = [UIColor clearColor];
+    _txtDescription.layer.borderColor = LINE_COLOR.CGColor;
+    _txtDescription.layer.borderWidth = 0.5;
+    _txtDescription.textColor = [UIColor whiteColor];
     
     if ([AppDelegate getOSVersion] == iOS6) {
         self.companyLogo.center = CGPointMake(self.companyLogo.center.x, self.companyLogo.center.y-64);

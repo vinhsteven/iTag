@@ -205,4 +205,15 @@ enum {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (float)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    // This will create a "invisible" footer
+    return 0.01f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    // To "clear" the footer view
+    return [UIView new];
+}
+
 @end
